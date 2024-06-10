@@ -88,7 +88,7 @@ public class SupporterScene extends PixelScene {
 		link.icon(Icons.get(Icons.GOLD));
 		link.textColor(Window.TITLE_COLOR);
 		link.setSize(elementWidth, BTN_HEIGHT);
-		add(link);
+//		add(link);
 
 		float elementHeight = msg.height() + BTN_HEIGHT + GAP;
 

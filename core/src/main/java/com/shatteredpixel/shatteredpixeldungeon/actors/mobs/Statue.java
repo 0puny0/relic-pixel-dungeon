@@ -205,5 +205,7 @@ public class Statue extends Mob {
 		statue.createWeapon(useDecks);
 		return statue;
 	}
-	
+	public Weapon weapon() {
+		return weapon;
+	}
 }

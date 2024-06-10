@@ -230,7 +230,13 @@ public class Hero extends Char {
 		
 		visibleEnemies = new ArrayList<>();
 	}
-	
+	public void changeLevel(int tolvl){
+		attackSkill+=tolvl-lvl;
+		defenseSkill+=tolvl-lvl;
+		lvl=tolvl;
+		updateHT(true);
+		Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
+	}
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 		
