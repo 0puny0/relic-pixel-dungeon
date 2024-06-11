@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfPolymorph;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
@@ -134,7 +135,7 @@ public class LazyTest extends TestGenerator {
 
             new StoneOfBlink().quantity(100).collect();
 
-            new StoneOfAugmentation().quantity(100).collect();
+            new StoneOfPolymorph().quantity(100).collect();
 
             new Blindweed.Seed().quantity(100).identify().collect();
             new Mageroyal.Seed().quantity(100).identify().collect();

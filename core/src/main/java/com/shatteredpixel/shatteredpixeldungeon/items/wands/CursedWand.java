@@ -354,7 +354,7 @@ public class CursedWand {
 	private static boolean veryRareEffect(final Item origin, final Char user, final int targetPos){
 		boolean positiveOnly = Random.Float() < WondrousResin.positiveCurseEffectChance();
 		switch( Random.Int(4) ){
-
+			//森林大火
 			//great forest fire!
 			//only grass, no fire, if positive only
 			case 0: default:
