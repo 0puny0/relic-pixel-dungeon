@@ -81,7 +81,7 @@ public class MagicalHolster extends Bag {
 	
 	@Override
 	public int value() {
-		return 60;
+		return 80;
 	}
 
 }

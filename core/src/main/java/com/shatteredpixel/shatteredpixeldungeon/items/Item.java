@@ -522,6 +522,10 @@ public class Item implements Bundlable {
 	public int value() {
 		return 0;
 	}
+	//售出价格
+	public int price(){
+		return value()*5;
+	}
 
 	//item's value in energy crystals
 	public int energyVal() {

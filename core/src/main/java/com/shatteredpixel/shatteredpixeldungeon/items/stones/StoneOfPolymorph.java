@@ -44,4 +44,9 @@ public class StoneOfPolymorph extends  Runestone {
             GLog.w(Messages.get(this, "nothing"));
         }
     }
+
+    @Override
+    public int value() {
+        return super.value()*2;
+    }
 }

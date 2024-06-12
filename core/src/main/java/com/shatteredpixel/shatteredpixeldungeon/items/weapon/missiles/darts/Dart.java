@@ -233,7 +233,7 @@ public class Dart extends MissileWeapon {
 	
 	@Override
 	public int value() {
-		return super.value()/2; //half normal value
+		return 10 * quantity ; //half normal value
 	}
 	
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
