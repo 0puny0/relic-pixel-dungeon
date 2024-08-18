@@ -50,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
+import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -258,6 +259,7 @@ public class WndRanking extends WndTabbed {
 				pos = statSlot(this, Messages.get(this, "food"), num.format(Statistics.foodEaten), pos);
 				pos = statSlot(this, Messages.get(this, "alchemy"), num.format(Statistics.itemsCrafted), pos);
 			}
+			addProficiencyPane();
 
 			int buttontop = HEIGHT - 16;
 
@@ -306,6 +308,53 @@ public class WndRanking extends WndTabbed {
 			parent.add( txt );
 			
 			return pos + GAP + txt.height();
+		}
+		Image weapon,missile,wand,armor;
+		BitmapText weaponTxt,missileTxt,wandTxt,armorTxt;
+		protected void addProficiencyPane(){
+			//添加组件并初始化
+			weapon= Icons.get(Icons.WEAPON_SML);
+			missile= Icons.get(Icons.MISSILE_SML);
+			wand= Icons.get(Icons.WAND_SML);
+			armor= Icons.get(Icons.ARMOR_SML);
+			add(weapon);
+			add(missile);
+			add(wand);
+			add(armor);
+			weaponTxt = new BitmapText(PixelScene.pixelFont);
+			weaponTxt.hardlight(Window.TITLE_COLOR);
+			add(weaponTxt);
+			wandTxt= new BitmapText(PixelScene.pixelFont);
+			wandTxt.hardlight(Window.TITLE_COLOR);
+			add(wandTxt);
+			missileTxt = new BitmapText(PixelScene.pixelFont);
+			missileTxt.hardlight(Window.TITLE_COLOR);
+			add(missileTxt);
+			armorTxt = new BitmapText(PixelScene.pixelFont);
+			armorTxt.hardlight(Window.TITLE_COLOR);
+			add(armorTxt);
+			weaponTxt.text("10");
+			armorTxt.text("5");
+			wandTxt.text("0");
+			missileTxt.text("0");
+			//设置组件位置
+			int pos=HEIGHT-25;
+			weapon.y=pos;
+			wand.y=pos;
+			missile.y=pos;
+			armor.y=pos;
+			weapon.x=0;
+			armor.x=weapon.x+32;
+			wand.x=armor.x+32;
+			missile.x=wand.x+32;
+			weaponTxt.y=pos;
+			wandTxt.y=pos;
+			missileTxt.y=pos;
+			armorTxt.y=pos;
+			weaponTxt.x=weapon.x+8;
+			armorTxt.x=armor.x+8;
+			wandTxt.x=wand.x+8;
+			missileTxt.x=missile.x+8;
 		}
 	}
 

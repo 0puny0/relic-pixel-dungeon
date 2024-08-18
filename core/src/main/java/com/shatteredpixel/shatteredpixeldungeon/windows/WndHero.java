@@ -41,6 +41,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
+import com.watabou.noosa.BitmapText;
+import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
@@ -48,6 +50,8 @@ import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.swing.Icon;
 
 public class WndHero extends WndTabbed {
 	
@@ -109,7 +113,7 @@ public class WndHero extends WndTabbed {
 		layoutTabs();
 
 		talents.setRect(0, 0, WIDTH, HEIGHT);
-		talents.pane.scrollTo(0, talents.pane.content().height() - talents.pane.height());
+		talents.talentsPane.scrollTo(0, talents.talentsPane.content().height() - talents.talentsPane.height());
 		talents.layout();
 
 		select( lastIdx );
@@ -127,7 +131,6 @@ public class WndHero extends WndTabbed {
 		private static final int GAP = 6;
 		
 		private float pos;
-		
 		public StatsTab() {
 			initialize();
 		}
@@ -171,8 +174,10 @@ public class WndHero extends WndTabbed {
 			infoButton.setRect(title.right(), 0, 16, 16);
 			add(infoButton);
 
-			pos = title.bottom() + 2*GAP;
+			pos=title.bottom()+4;
+			addProficiencyPane();
 
+			pos = title.bottom() +3*GAP;
 			int strBonus = hero.STR() - hero.STR;
 			if (strBonus > 0)           statSlot( Messages.get(this, "str"), hero.STR + " + " + strBonus );
 			else if (strBonus < 0)      statSlot( Messages.get(this, "str"), hero.STR + " - " + -strBonus );
@@ -203,7 +208,7 @@ public class WndHero extends WndTabbed {
 		private void statSlot( String label, String value ) {
 			
 			RenderedTextBlock txt = PixelScene.renderTextBlock( label, 8 );
-			txt.setPos(0, pos);
+			txt.setPos(2, pos);
 			add( txt );
 			
 			txt = PixelScene.renderTextBlock( value, 8 );
@@ -221,23 +226,68 @@ public class WndHero extends WndTabbed {
 		public float height() {
 			return pos;
 		}
+
+		Image weapon,missile,wand,armor;
+		BitmapText weaponTxt,missileTxt,wandTxt,armorTxt;
+		protected void addProficiencyPane(){
+			//添加组件并初始化
+			weapon= Icons.get(Icons.WEAPON_SML);
+			missile= Icons.get(Icons.MISSILE_SML);
+			wand= Icons.get(Icons.WAND_SML);
+			armor= Icons.get(Icons.ARMOR_SML);
+			add(weapon);
+			add(missile);
+			add(wand);
+			add(armor);
+			weaponTxt = new BitmapText(PixelScene.pixelFont);
+			weaponTxt.hardlight(Window.TITLE_COLOR);
+			add(weaponTxt);
+			wandTxt= new BitmapText(PixelScene.pixelFont);
+			wandTxt.hardlight(Window.TITLE_COLOR);
+			add(wandTxt);
+			missileTxt = new BitmapText(PixelScene.pixelFont);
+			missileTxt.hardlight(Window.TITLE_COLOR);
+			add(missileTxt);
+			armorTxt = new BitmapText(PixelScene.pixelFont);
+			armorTxt.hardlight(Window.TITLE_COLOR);
+			add(armorTxt);
+			weaponTxt.text("10");
+			armorTxt.text("5");
+			wandTxt.text("0");
+			missileTxt.text("0");
+			//设置组件位置
+			weapon.y=pos;
+			wand.y=pos;
+			missile.y=pos;
+			armor.y=pos;
+			weapon.x=2;
+			armor.x=weapon.x+32;
+			wand.x=armor.x+32;
+			missile.x=wand.x+32;
+			weaponTxt.y=pos;
+			wandTxt.y=pos;
+			missileTxt.y=pos;
+			armorTxt.y=pos;
+			weaponTxt.x=weapon.x+8;
+			armorTxt.x=armor.x+8;
+			wandTxt.x=wand.x+8;
+			missileTxt.x=missile.x+8;
+		}
 	}
 
 	public class TalentsTab extends Component {
-
-		TalentsPane pane;
-
+		TalentsPane talentsPane;
 		@Override
 		protected void createChildren() {
 			super.createChildren();
-			pane = new TalentsPane(TalentButton.Mode.UPGRADE);
-			add(pane);
+			talentsPane = new TalentsPane(TalentButton.Mode.UPGRADE);
+			add(talentsPane);
 		}
 
 		@Override
 		protected void layout() {
 			super.layout();
-			pane.setRect(x, y, width, height);
+			talentsPane.setRect(x, y, width, height);
 		}
 
 	}

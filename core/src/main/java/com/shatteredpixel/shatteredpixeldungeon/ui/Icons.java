@@ -85,6 +85,10 @@ public enum Icons {
 	ENERGY,
 	COPY,
 	PASTE,
+	WEAPON_SML,
+	WAND_SML,
+	MISSILE_SML,
+	ARMOR_SML,
 	COIN_SML,
 	ENERGY_SML,
 	BACKPACK,
@@ -278,6 +282,18 @@ public enum Icons {
 				break;
 			case PASTE:
 				icon.frame( icon.texture.uvRectBySize( 240, 48, 13, 13 ) );
+				break;
+			case WEAPON_SML:
+				icon.frame( icon.texture.uvRectBySize( 176, 64, 7, 7 ) );
+				break;
+			case WAND_SML:
+				icon.frame( icon.texture.uvRectBySize( 185, 64, 7, 7 ) );
+				break;
+			case MISSILE_SML:
+				icon.frame( icon.texture.uvRectBySize( 176, 73, 7, 7 ) );
+				break;
+			case ARMOR_SML:
+				icon.frame( icon.texture.uvRectBySize( 185, 73, 7, 7 ) );
 				break;
 			case COIN_SML:
 				icon.frame( icon.texture.uvRectBySize( 192, 64, 7, 7 ) );
