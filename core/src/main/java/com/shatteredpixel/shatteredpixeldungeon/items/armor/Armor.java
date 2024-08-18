@@ -603,7 +603,10 @@ public class Armor extends EquipableItem {
 		}
 		return price;
 	}
-
+	@Override
+	public int price() {
+		return value();
+	}
 	public Armor inscribe( Glyph glyph ) {
 		if (glyph == null || !glyph.curse()) curseInfusionBonus = false;
 		this.glyph = glyph;

@@ -423,6 +423,11 @@ public class MeleeWeapon extends Weapon {
 		return price;
 	}
 
+	@Override
+	public int price() {
+		return value();
+	}
+
 	public static class Charger extends Buff implements ActionIndicator.Action {
 
 		public int charges = 2;
@@ -588,5 +593,4 @@ public class MeleeWeapon extends Weapon {
 			AttackIndicator.updateState();
 		}
 	}
-
 }

@@ -31,10 +31,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.MerchantsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
@@ -52,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfPolymorph;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -67,12 +66,12 @@ import java.util.HashMap;
 public class ShopRoom extends SpecialRoom {
 
 	protected ArrayList<Item> itemsToSpawn;
-	
+
 	@Override
 	public int minWidth() {
 		return Math.max(7, (int)(Math.sqrt(spacesNeeded())+3));
 	}
-	
+
 	@Override
 	public int minHeight() {
 		return Math.max(7, (int)(Math.sqrt(spacesNeeded())+3));
@@ -96,16 +95,16 @@ public class ShopRoom extends SpecialRoom {
 		spacesNeeded++;
 		return spacesNeeded;
 	}
-	
+
 	public void paint( Level level ) {
-		
+
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.EMPTY_SP );
 
 		placeShopkeeper( level );
 
 		placeItems( level );
-		
+
 		for (Door door : connected.values()) {
 			door.set( Door.Type.REGULAR );
 		}
@@ -213,54 +212,49 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 	}
-	
+
 	protected static ArrayList<Item> generateItems() {
 
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
 		MeleeWeapon w;
-		Armor a;
 		switch (Dungeon.depth) {
-		case 6: default:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify(false) );
-			a=new LeatherArmor();
-			break;
-			
-		case 11:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[2]).quantity(2).identify(false) );
-			a=new MailArmor();
-			break;
-			
-		case 16:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[3]).quantity(2).identify(false) );
-			a=new ScaleArmor();
-			break;
+			case 6: default:
+				w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
+				itemsToSpawn.add( Generator.random(Generator.misTiers[1]).quantity(2).identify(false) );
+				itemsToSpawn.add( new LeatherArmor().identify(false) );
+				break;
 
-		case 20: case 21:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
-			itemsToSpawn.add( Generator.random(Generator.misTiers[4]).quantity(2).identify(false) );
-			a=new PlateArmor();
-			itemsToSpawn.add( new Torch() );
-			itemsToSpawn.add( new Torch() );
-			itemsToSpawn.add( new Torch() );
-			break;
+			case 11:
+				w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
+				itemsToSpawn.add( Generator.random(Generator.misTiers[2]).quantity(2).identify(false) );
+				itemsToSpawn.add( new MailArmor().identify(false) );
+				break;
+
+			case 16:
+				w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
+				itemsToSpawn.add( Generator.random(Generator.misTiers[3]).quantity(2).identify(false) );
+				itemsToSpawn.add( new ScaleArmor().identify(false) );
+				break;
+
+			case 20: case 21:
+				w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
+				itemsToSpawn.add( Generator.random(Generator.misTiers[4]).quantity(2).identify(false) );
+				itemsToSpawn.add( new PlateArmor().identify(false) );
+				itemsToSpawn.add( new Torch() );
+				itemsToSpawn.add( new Torch() );
+				itemsToSpawn.add( new Torch() );
+				break;
 		}
 		w.enchant(null);
 		w.cursed = false;
-		w.level(1);
+		w.level(0);
 		w.identify(false);
 		itemsToSpawn.add(w);
 
-		a.level(1);
-		a.identify(false);
-		itemsToSpawn.add(a);
-
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
-		itemsToSpawn.add( new MerchantsBeacon().quantity(Random.IntRange(2, 3)));
+		itemsToSpawn.add( new Alchemize().quantity(Random.IntRange(2, 3)));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
 		if (bag != null) {
@@ -283,7 +277,7 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new SmallRation() );
 		itemsToSpawn.add( new SmallRation() );
-		
+
 		switch (Random.Int(4)){
 			case 0:
 				itemsToSpawn.add( new Bomb() );
@@ -345,7 +339,7 @@ public class ShopRoom extends SpecialRoom {
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		//we can use a random long for the seed as it will be the same long every time
 		Random.pushGenerator(Random.Long());
-			Random.shuffle(itemsToSpawn);
+		Random.shuffle(itemsToSpawn);
 		Random.popGenerator();
 
 		return itemsToSpawn;
