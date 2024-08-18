@@ -175,7 +175,7 @@ public class WndHero extends WndTabbed {
 			add(infoButton);
 
 			pos=title.bottom()+4;
-			addProficiencyPane();
+			addProficiencyPane(hero);
 
 			pos = title.bottom() +3*GAP;
 			int strBonus = hero.STR() - hero.STR;
@@ -229,7 +229,7 @@ public class WndHero extends WndTabbed {
 
 		Image weapon,missile,wand,armor;
 		BitmapText weaponTxt,missileTxt,wandTxt,armorTxt;
-		protected void addProficiencyPane(){
+		protected void addProficiencyPane(Hero hero){
 			//添加组件并初始化
 			weapon= Icons.get(Icons.WEAPON_SML);
 			missile= Icons.get(Icons.MISSILE_SML);
@@ -251,10 +251,10 @@ public class WndHero extends WndTabbed {
 			armorTxt = new BitmapText(PixelScene.pixelFont);
 			armorTxt.hardlight(Window.TITLE_COLOR);
 			add(armorTxt);
-			weaponTxt.text("10");
-			armorTxt.text("5");
-			wandTxt.text("0");
-			missileTxt.text("0");
+			weaponTxt.text(Integer.toString(hero.pro(0)));
+			armorTxt.text(Integer.toString(hero.pro(1)));
+			wandTxt.text(Integer.toString(hero.pro(2)));
+			missileTxt.text(Integer.toString(hero.pro(3)));
 			//设置组件位置
 			weapon.y=pos;
 			wand.y=pos;

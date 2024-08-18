@@ -183,6 +183,10 @@ public class Hero extends Char {
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
+	public static final int STARTING_MELEE = 0;
+	public static final int STARTING_MIS = 0;
+	public static final int STARTING_ARMOR = 0;
+	public static final int STARTING_WAND = 0;
 	
 	private static final float TIME_TO_REST		    = 1f;
 	private static final float TIME_TO_SEARCH	    = 2f;
@@ -209,6 +213,7 @@ public class Hero extends Char {
 	public Belongings belongings;
 	
 	public int STR;
+	public int MELEE,ARMOR,WAND,MIS;
 	
 	public float awareness;
 	
@@ -228,7 +233,11 @@ public class Hero extends Char {
 
 		HP = HT = 20;
 		STR = STARTING_STR;
-		
+		MELEE=STARTING_MELEE;
+		ARMOR=STARTING_ARMOR;
+		WAND=STARTING_WAND;
+		MIS=STARTING_MIS;
+
 		belongings = new Belongings( this );
 		
 		visibleEnemies = new ArrayList<>();
@@ -273,7 +282,24 @@ public class Hero extends Char {
 
 		return STR + strBonus;
 	}
-
+	public int pro(int type){
+		int pro=0;
+		switch (type){
+			case 0:
+				pro=MELEE;
+				break;
+			case 1:
+				pro=ARMOR;
+				break;
+			case 2:
+				pro=WAND;
+				break;
+			case 3:
+				pro=MIS;
+				break;
+		}
+		return pro;
+	}
 	private static final String CLASS       = "class";
 	private static final String SUBCLASS    = "subClass";
 	private static final String ABILITY     = "armorAbility";
@@ -281,6 +307,11 @@ public class Hero extends Char {
 	private static final String ATTACK		= "attackSkill";
 	private static final String DEFENSE		= "defenseSkill";
 	private static final String STRENGTH	= "STR";
+	private static final String MELEE_PRO	= "melee_pro";
+	private static final String ARMOR_PRO	= "armor_pro";
+	private static final String WAND_PRO	= "wand_pro";
+	private static final String MIS_PRO	= "mis_pro";
+
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
@@ -299,6 +330,10 @@ public class Hero extends Char {
 		bundle.put( DEFENSE, defenseSkill );
 		
 		bundle.put( STRENGTH, STR );
+		bundle.put( MELEE_PRO, MELEE );
+		bundle.put( ARMOR_PRO, ARMOR );
+		bundle.put( WAND_PRO, WAND );
+		bundle.put( MIS_PRO, MIS );
 		
 		bundle.put( LEVEL, lvl );
 		bundle.put( EXPERIENCE, exp );
@@ -327,6 +362,11 @@ public class Hero extends Char {
 		defenseSkill = bundle.getInt( DEFENSE );
 		
 		STR = bundle.getInt( STRENGTH );
+		MELEE = bundle.getInt( MELEE_PRO );
+		ARMOR = bundle.getInt( ARMOR_PRO );
+		WAND = bundle.getInt( WAND_PRO );
+		MIS = bundle.getInt( MIS_PRO );
+
 
 		belongings.restoreFromBundle( bundle );
 	}

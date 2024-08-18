@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
@@ -259,7 +260,7 @@ public class WndRanking extends WndTabbed {
 				pos = statSlot(this, Messages.get(this, "food"), num.format(Statistics.foodEaten), pos);
 				pos = statSlot(this, Messages.get(this, "alchemy"), num.format(Statistics.itemsCrafted), pos);
 			}
-			addProficiencyPane();
+			addProficiencyPane(Dungeon.hero);
 
 			int buttontop = HEIGHT - 16;
 
@@ -311,7 +312,7 @@ public class WndRanking extends WndTabbed {
 		}
 		Image weapon,missile,wand,armor;
 		BitmapText weaponTxt,missileTxt,wandTxt,armorTxt;
-		protected void addProficiencyPane(){
+		protected void addProficiencyPane(Hero hero){
 			//添加组件并初始化
 			weapon= Icons.get(Icons.WEAPON_SML);
 			missile= Icons.get(Icons.MISSILE_SML);
@@ -333,10 +334,10 @@ public class WndRanking extends WndTabbed {
 			armorTxt = new BitmapText(PixelScene.pixelFont);
 			armorTxt.hardlight(Window.TITLE_COLOR);
 			add(armorTxt);
-			weaponTxt.text("10");
-			armorTxt.text("5");
-			wandTxt.text("0");
-			missileTxt.text("0");
+			weaponTxt.text(Integer.toString(hero.pro(0)));
+			armorTxt.text(Integer.toString(hero.pro(1)));
+			wandTxt.text(Integer.toString(hero.pro(2)));
+			missileTxt.text(Integer.toString(hero.pro(3)));
 			//设置组件位置
 			int pos=HEIGHT-25;
 			weapon.y=pos;
